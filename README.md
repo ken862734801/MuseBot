@@ -1,1 +1,1 @@
-# MuseBot
+# StatMuse Bot

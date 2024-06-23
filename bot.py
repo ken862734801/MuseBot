@@ -1,25 +1,24 @@
-import os
-from dotenv import load_dotenv
+import sys
 from twitchio.ext import commands
 
-load_dotenv()
+class TwitchBot(commands.Bot):
 
-ACCESS_TOKEN = os.getenv('ACCESS_TOKEN')
-INITIAL_CHANNELS = ['']
-
-class Bot(commands.Bot):
-
-    def __init__(self):
-        super().__init__(token=ACCESS_TOKEN, prefix='!', initial_channels=INITIAL_CHANNELS)
+    def __init__(self, token):
+        super().__init__(token=token, prefix="!", initial_channels=[''])
 
     async def event_ready(self):
         print(f'Logged in as | {self.nick}')
         print(f'User id is | {self.user_id}')
 
-    @commands.command(name='hello')
-    async def hello(self, ctx: commands.Context):
-        await ctx.send('Hello, World!')
+def main():
+    if len(sys.argv) != 2:
+        print('Missing arguments...')
+        sys.exit(1)
+    
+    token = sys.argv[1]
 
-if __name__ == '__main__':
-    bot = Bot()
-    bot.run()
+    statmusebot = TwitchBot(token=token)
+    statmusebot.run()
+
+if __name__ == "__main__":
+    main()
