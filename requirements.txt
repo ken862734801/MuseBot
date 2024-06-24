@@ -1,1 +1,2 @@
+nba_api==1.4.1
 twitchio==2.9.1
