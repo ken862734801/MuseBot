@@ -1,12 +1,12 @@
-import sys
+import os
+from dotenv import load_dotenv
 from statmuse_bot.bot import Bot
 
+load_dotenv()
+
 def main():
-    if len(sys.argv) !=2:
-        sys.exit(1)
-    
-    token = sys.argv[1]
-    
+    token = os.getenv('token')
+
     bot = Bot(token=token)
     bot.run()
 
