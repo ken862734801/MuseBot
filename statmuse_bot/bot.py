@@ -1,7 +1,5 @@
 from twitchio.ext import commands
-from nba.stat import Stat
-
-stat = Stat()
+from nba.client import get_record
 
 class Bot(commands.Bot):
     
@@ -30,6 +28,15 @@ class Bot(commands.Bot):
     
     @commands.command(name='record')
     async def record(self, ctx: commands.Context):
+        team = self.parse_command(ctx.message.content)
+        record = get_record(team);
+        if team:
+            await ctx.send(f'{record}')
+        else:
+            await ctx.send(f'Incorrect usage!')
+
+    @commands.command(name='score')
+    async def score(self, ctx: commands.Context):
         team = self.parse_command(ctx.message.content)
         if team:
             await ctx.send(f'{team}')
