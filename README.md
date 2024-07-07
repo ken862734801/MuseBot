@@ -28,7 +28,7 @@ Install required packages:
 
 ### Setup
 
-Create a .env file in the root directory of the project and add your Spotify API credentials:
+Create a .env file in the root directory of the project and add your Twitch API credentials:
 
     token=your_twitch_auth_token
 
