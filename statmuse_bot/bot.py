@@ -42,5 +42,3 @@ class Bot(commands.Bot):
             await ctx.send(f'{team}')
         else:
             await ctx.send(f'Incorrect usage!')
-
-

@@ -1,6 +1,6 @@
+import pandas as pd
 from nba_api.stats.static import players, teams
 from nba_api.stats.endpoints import teamgamelog
-import pandas as pd
 
 def get_player_id(name):
     try:
@@ -32,10 +32,10 @@ def get_record(name):
         game_log = teamgamelog.TeamGameLog(team_id=team_id)
         game_log_df = game_log.get_data_frames()[0]
 
-        total_wins = game_log_df.iloc[0]['W']
-        total_losses = game_log_df.iloc[0]['L']
+        win_count = game_log_df.iloc[0]['W']
+        loss_count = game_log_df.iloc[0]['L']
     
-        return {'Wins': total_wins, 'Losses': total_losses}
+        return f'The {name} are {win_count} - {loss_count}.'
     except Exception as e:
         return f'Error: {e}'
     

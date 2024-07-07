@@ -1,2 +1,4 @@
 nba_api==1.5.0
+pandas==2.2.2
+python-dotenv==1.0.1
 twitchio==2.9.1
