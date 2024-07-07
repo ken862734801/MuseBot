@@ -1,5 +1,5 @@
 from twitchio.ext import commands
-from nba.client import get_record
+from nba.client import get_career, get_record
 
 class Bot(commands.Bot):
     
@@ -22,15 +22,16 @@ class Bot(commands.Bot):
     async def career(self, ctx: commands.Context):
         name = self.parse_command(ctx.message.content)
         if name:
-            await ctx.send(f'{name}')
+            career = get_career(name)
+            await ctx.send(f'{career}')
         else:
             await ctx.send('Incorrect usage!')
     
     @commands.command(name='record')
     async def record(self, ctx: commands.Context):
         team = self.parse_command(ctx.message.content)
-        record = get_record(team);
         if team:
+            record = get_record(team);
             await ctx.send(f'{record}')
         else:
             await ctx.send(f'Incorrect usage!')
