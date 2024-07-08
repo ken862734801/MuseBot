@@ -1,6 +1,7 @@
 import pandas as pd
 from nba_api.stats.static import players, teams
 from nba_api.stats.endpoints import playercareerstats, teamgamelog
+from nba_api.live.nba.endpoints import scoreboard
 
 def get_player_id(name):
     try:
@@ -45,7 +46,7 @@ def get_career(name):
         average_assists = round(total_assists/total_games, 2)
         average_field_goal_percentage = round((field_goals_made/field_goals_attempted) * 100, 2)
 
-        return f'{name}: {average_points} PTS, {average_rebounds} REB, {average_assists} AST, {average_field_goal_percentage}% FG'
+        return f'{name} averages {average_points} PTS, {average_rebounds} REB, and {average_assists} AST, on {average_field_goal_percentage}% shooting.'
 
     except Exception as e:
         return f'Error: {e}'
@@ -65,4 +66,34 @@ def get_record(name):
         return f'The {name} are {win_count} - {loss_count}.'
     except Exception as e:
         return f'Error: {e}'
+
+# Add the functionality to this function
+def get_score(name):
+    team_id = get_team_id(name)
+    if isinstance(team_id, str):
+        return team_id
+
+    try:
+        scoreboard_ = scoreboard.ScoreBoard().get_dict()
+        total_games = scoreboard_['scoreboard']['games']
+
+        for game in total_games:
+            home_team = game['homeTeam']
+            away_team = game['awayTeam']
+
+            if home_team['teamId'] == team_id or away_team['teamId'] == team_id:
+                home_score = home_team['score']
+                away_score = away_team['score']
+
+                print(home_score, away_score)
+            
+        return f'The {name} do not play today.'
+
+    except Exception as e:
+        return f'Error: {e}'
+
+
+
+print(get_score('Miami Heat'))
+
     
