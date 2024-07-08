@@ -67,8 +67,7 @@ def get_record(name):
     except Exception as e:
         return f'Error: {e}'
 
-# Add the functionality to this function
-def get_score(name):
+def get_game_score(name):
     team_id = get_team_id(name)
     if isinstance(team_id, str):
         return team_id
@@ -82,18 +81,16 @@ def get_score(name):
             away_team = game['awayTeam']
 
             if home_team['teamId'] == team_id or away_team['teamId'] == team_id:
+               
                 home_score = home_team['score']
                 away_score = away_team['score']
 
-                print(home_score, away_score)
+                home_team_name = f'{home_team['teamCity']} {home_team['teamName']}'
+                away_team_name = f'{away_team['teamCity']} {away_team['teamName']}'
+
+                return f'{home_team_name} {home_score} - {away_team_name} {away_score}'
             
         return f'The {name} do not play today.'
 
     except Exception as e:
         return f'Error: {e}'
-
-
-
-print(get_score('Miami Heat'))
-
-    

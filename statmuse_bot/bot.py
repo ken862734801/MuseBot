@@ -1,5 +1,5 @@
 from twitchio.ext import commands
-from nba.client import get_career, get_record
+from nba.client import get_career, get_record, get_game_score
 
 class Bot(commands.Bot):
     
@@ -23,23 +23,24 @@ class Bot(commands.Bot):
         name = self.parse_command(ctx.message.content)
         if name:
             career = get_career(name)
-            await ctx.send(f'{career}')
+            await ctx.send(f'{career} @{ctx.author.name}')
         else:
-            await ctx.send('Incorrect usage!')
+            await ctx.send(f'Missing player name. @{ctx.author.name}')
     
     @commands.command(name='record')
     async def record(self, ctx: commands.Context):
         team = self.parse_command(ctx.message.content)
         if team:
             record = get_record(team);
-            await ctx.send(f'{record}')
+            await ctx.send(f'{record} @{ctx.author.name}')
         else:
-            await ctx.send(f'Incorrect usage!')
+            await ctx.send(f'Missing team name. @{ctx.author.name}')
 
     @commands.command(name='score')
     async def score(self, ctx: commands.Context):
         team = self.parse_command(ctx.message.content)
         if team:
-            await ctx.send(f'{team}')
+            score = get_game_score(team)
+            await ctx.send(f'{score} @{ctx.author.name}')
         else:
-            await ctx.send(f'Incorrect usage!')
+            await ctx.send(f'Missing team name. @{ctx.author.name}')
