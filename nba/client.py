@@ -47,8 +47,8 @@ def get_career(name):
 
         return f'{name}: {average_points} PTS, {average_rebounds} REB, {average_assists} AST, {average_field_goal_percentage}% FG'
 
-    except:
-        print('Except!')
+    except Exception as e:
+        return f'Error: {e}'
 
 def get_record(name):
     team_id = get_team_id(name)

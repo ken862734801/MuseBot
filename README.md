@@ -28,9 +28,17 @@ Install required packages:
 
 ### Setup
 
-Create a .env file in the root directory of the project and add your Twitch API credentials:
+1. Get your Twitch Credentials
+    - Visit - https://dev.twitch.tv/console
+    - Register your application to get a Client ID and Client Secret.
+2. Generate an Access Token
+    - Visit - https://twitchtokengenerator.com/
+    - Follow the instructions to generate an access token.
+3. Create an `.env` file in the root directory of the project and add your token:
 
-    token=your_twitch_auth_token
+        token=your_twitch_auth_token
+4. Specify the Channel
+    - Open the `bot.py` file, and add your channel name to the initial_channels array.
 
 ### Execution
 
