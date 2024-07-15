@@ -1,11 +1,12 @@
 import pandas as pd
 from nba_api.stats.static import players, teams
 from nba_api.stats.endpoints import playercareerstats, teamgamelog
-from nba_api.live.nba.endpoints import scoreboard
+from nba_api.live.nba.endpoints import boxscore, scoreboard
 
 def get_player_id(name):
     try:
         player = players.find_players_by_full_name(name)
+        print(player)
         if player:
             player_id = player[0].get('id', None)
             return player_id
@@ -22,6 +23,34 @@ def get_team_id(name):
             return team_id
         else:
             return f'Team not found by name: {name}'
+    except Exception as e:
+        return f'Error: {e}'
+    
+def get_current_team(player_id):
+    try:
+        career_stats = playercareerstats.PlayerCareerStats(player_id=player_id)
+        career_stats_df = career_stats.get_data_frames()[0]
+        team_id = career_stats_df.iloc[-1]['TEAM_ID']
+        return team_id
+    except Exception as e:
+        return f'Error: {e}'
+
+def get_current_game(player_id):
+    try:
+        current_team = get_current_team(player_id)
+        if isinstance(current_team, str):
+            return current_team
+        scoreboard_ = scoreboard.ScoreBoard().get_dict()
+        games = scoreboard_['scoreboard']['games']
+
+        for game in games:
+            home_team = game['homeTeam']
+            away_team = game['awayTeam']
+
+            if home_team['teamId'] == current_team or away_team['teamId'] == current_team:
+                return game['gameId']
+            
+        return 'No game found for the player\'s team today.'
     except Exception as e:
         return f'Error: {e}'
     
@@ -94,3 +123,29 @@ def get_game_score(name):
 
     except Exception as e:
         return f'Error: {e}'
+    
+def get_boxscore(name):
+    player_id = get_player_id(name)
+    if isinstance(player_id, str):
+        return player_id
+    
+    game_id = get_current_game(player_id)
+    if isinstance(game_id, str):
+        return game_id
+    
+    try:
+       boxscore_ = boxscore.BoxScore(game_id=game_id).get_dict()
+       players = boxscore_['game']['homeTeam']['players'] + boxscore_['game']['awayTeam']['players']
+
+       for player in players:
+           if player['personId'] == player_id:
+               player_stats = player['statistics']
+               points = player_stats['points']
+               assists = player_stats['assists']
+               rebounds = player_stats['reboundsTotal']
+               field_goal_percentage = player_stats['fieldGoalsPercentage'] * 100
+
+               return f'{name} has {points} PTS, {assists} AST, {rebounds} REB, on {field_goal_percentage}% shooting.'
+       return 'f{name} does not play today.'
+    except:
+        print('except!')
