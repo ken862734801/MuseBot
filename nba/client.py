@@ -6,12 +6,8 @@ from nba_api.live.nba.endpoints import boxscore, scoreboard
 def get_player_id(name):
     """
     Retrieves the player ID given a player's full name.
-
-    Parameters:
-    name (str): Full name of the player.
-
-    Returns:
-    int or str: Player ID if found, otherwise an error message or a message indicating the player was not found.
+    @param: name: Full name of the player.
+    @return: Player ID if found, otherwise an error message or a message indicating the player was not found.
     """
     try:
         player = players.find_players_by_full_name(name)
@@ -27,12 +23,8 @@ def get_player_id(name):
 def get_team_id(name):
     """
     Retrieves the team ID given a team's full name.
-
-    Parameters:
-    name (str): Full name of the team.
-
-    Returns:
-    int or str: Team ID if found, otherwise an error message or a message indicating the team was not found.
+    @param: name: Full name of the team.
+    @return: Team ID if found, otherwise an error message or a message indicating the team was not found.
     """
     try:
         team = teams.find_teams_by_full_name(name)
@@ -47,12 +39,8 @@ def get_team_id(name):
 def get_current_team(player_id):
     """
     Retrieves the current team ID of a player given their player ID.
-
-    Parameters:
-    player_id (int): Player ID.
-
-    Returns:
-    int or str: Current team ID if found, otherwise an error message.
+    @param: player_id: Player ID.
+    @return: Current team ID if found, otherwise an error message.
     """
     try:
         career_stats = playercareerstats.PlayerCareerStats(player_id=player_id)
@@ -65,12 +53,8 @@ def get_current_team(player_id):
 def get_current_game(player_id):
     """
     Retrieves the current game ID for a player's team given the player's ID.
-
-    Parameters:
-    player_id (int): Player ID.
-
-    Returns:
-    str: Game ID if a game is found, otherwise a message indicating no game is found or an error message.
+    @param: player_id: Player ID.
+    @return: Game ID if a game is found, otherwise a message indicating no game is found or an error message.
     """
     try:
         current_team = get_current_team(player_id)
@@ -93,12 +77,8 @@ def get_current_game(player_id):
 def get_career(name):
     """
     Retrieves the career statistics of a player given their full name.
-
-    Parameters:
-    name (str): Full name of the player.
-
-    Returns:
-    str: A summary of the player's career statistics, otherwise an error message.
+    @param: name: Full name of the player.
+    @return: A summary of the player's career statistics, otherwise an error message.
     """
     player_id = get_player_id(name)
     if isinstance(player_id, str):
@@ -132,12 +112,8 @@ def get_career(name):
 def get_record(name):
     """
     Retrieves the current win-loss record of a team given the team's full name.
-
-    Parameters:
-    name (str): Full name of the team.
-
-    Returns:
-    str: A summary of the team's current win-loss record, otherwise an error message.
+    @param: name: Full name of the team.
+    @return: A summary of the team's current win-loss record, otherwise an error message.
     """
     team_id = get_team_id(name)
     if isinstance(team_id, str):
@@ -157,12 +133,8 @@ def get_record(name):
 def get_game_score(name):
     """
     Retrieves the current game score for a team given the team's full name.
-
-    Parameters:
-    name (str): Full name of the team.
-
-    Returns:
-    str: The current game score if the team is playing, otherwise a message indicating no game is found or an error message.
+    @param: name: Full name of the team.
+    @return: The current game score if the team is playing, otherwise an error message.
     """
     team_id = get_team_id(name)
     if isinstance(team_id, str):
@@ -194,12 +166,8 @@ def get_game_score(name):
 def get_boxscore(name):
     """
     Retrieves the box score statistics for a player given the player's full name.
-
-    Parameters:
-    name (str): Full name of the player.
-
-    Returns:
-    str: A summary of the player's box score statistics, otherwise a message indicating the player does not play today or an error message.
+    @param: name: Full name of the player.
+    @return: A summary of the player's box score statistics, otherwise an error message.
     """
     player_id = get_player_id(name)
     if isinstance(player_id, str):
