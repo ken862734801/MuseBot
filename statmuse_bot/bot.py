@@ -1,5 +1,5 @@
 from twitchio.ext import commands
-from nba.client import get_career, get_record, get_game_score
+from nba.client import get_career, get_record, get_game_score, get_boxscore
 
 class Bot(commands.Bot):
     
@@ -44,3 +44,12 @@ class Bot(commands.Bot):
             await ctx.send(f'{score} @{ctx.author.name}')
         else:
             await ctx.send(f'Missing team name. @{ctx.author.name}')
+
+    @commands.command(name='boxscore')
+    async def boxscore(self, ctx: commands.Context):
+        player = self.parse_command(ctx.message.content)
+        if player:
+            stat_line = get_boxscore(player)
+            await ctx.send(f'{stat_line} @{ctx.author.name}')
+        else:
+            await ctx.send(f'Missing player name. @{ctx.author.name}')
