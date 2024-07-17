@@ -24,7 +24,7 @@ Create a virtual environment:
 
 Install required packages:
 
-    pip3 install -r requirements.txt
+    pip install -r requirements.txt
 
 ### Setup
 

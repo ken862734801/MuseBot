@@ -1,5 +1,17 @@
 # Bot Commands
 
+## !commands
+
+**Description:** Retrieves the link to all possible commands.
+
+**Usage:** `!commands`
+
+**Example:** `!commands`
+
+**Response:** `https://github.com/ken862734801/statmuse-bot/blob/main/commands.md`
+
+---
+
 ## !career
 
 **Description:** Retrieves the career statistics of a player.
@@ -8,7 +20,7 @@
 
 **Example:** `!career LeBron James`
 
-**Response:** `[player name] averages [PTS] PTS, [REB] REB, and [AST] AST, on [FG%] shooting.`
+**Response:** `[player name] averages [PTS] PTS, [REB] REB, [AST] AST, [BLK] BLK, [STL] STL on [FG%] shooting.`
 
 ---
 
@@ -44,4 +56,4 @@
 
 **Example:** `!boxscore LeBron James`
 
-**Response:** `[player name] has [PTS] PTS, [AST] AST, [REB] REB, on [FG%] shooting.` or `[player name] does not play today.`
+**Response:** `[player name] has [PTS] PTS, [AST] AST, [REB] REB, [BLK] [BLK] [STL] STL on [FGA]/[FGM] [FG%] shooting.` or `[player name] does not play today.`
