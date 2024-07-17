@@ -114,13 +114,17 @@ def get_career(name):
         total_assists = career_stats_df['AST'].sum()
         field_goals_attempted = career_stats_df['FGA'].sum()
         field_goals_made = career_stats_df['FGM'].sum()
+        total_blocks = career_stats_df['BLK'].sum()
+        total_steals = career_stats_df['STL'].sum()
 
-        average_points = round(total_points/total_games, 2)
-        average_rebounds = round(total_rebounds/total_games, 2)
-        average_assists = round(total_assists/total_games, 2)
-        average_field_goal_percentage = round((field_goals_made/field_goals_attempted) * 100, 2)
+        average_points = round(total_points/total_games, 1)
+        average_rebounds = round(total_rebounds/total_games, 1)
+        average_assists = round(total_assists/total_games, 1)
+        average_field_goal_percentage = round((field_goals_made/field_goals_attempted) * 100, 1)
+        average_blocks = round(total_blocks/total_games, 1)
+        average_steals = round(total_steals/total_games, 1)
 
-        return f'{name} averages {average_points} PTS, {average_rebounds} REB, and {average_assists} AST, on {average_field_goal_percentage}% shooting.'
+        return f'{name} averages {average_points} PTS, {average_rebounds} REB, {average_assists} AST, {average_blocks} BLK, {average_steals} STL, on {average_field_goal_percentage}% shooting.'
 
     except Exception as e:
         return f'Error: {e}'
@@ -215,9 +219,13 @@ def get_boxscore(name):
                points = player_stats['points']
                assists = player_stats['assists']
                rebounds = player_stats['reboundsTotal']
+               blocks = player_stats['blocks']
+               steals = player_stats['steals']
+               field_goals_made = player_stats['fieldGoalsMade']
+               field_goals_attempted = player_stats['fieldGoalsAttempted']
                field_goal_percentage = player_stats['fieldGoalsPercentage'] * 100
 
-               return f'{name} has {points} PTS, {assists} AST, {rebounds} REB, on {field_goal_percentage}% shooting.'
+               return f'{name} has {points} PTS, {assists} AST, {rebounds} REB, {blocks} BLK, {steals} STL, on {field_goals_made}/{field_goals_attempted} ({field_goal_percentage}%) shooting.'
        return 'f{name} does not play today.'
     except Exception as e:
         return f'Error: {e}'

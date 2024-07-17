@@ -57,3 +57,4 @@ class Bot(commands.Bot):
     @commands.command(name='commands')
     async def get_command_list(self, ctx: commands.Context):
         await ctx.send(f'https://github.com/ken862734801/statmuse-bot/blob/main/commands.md @{ctx.author.name}')
+
